@@ -1,0 +1,12 @@
+node_modules/
+dist/
+
+.idea
+.vscode
+
+npm-debug.log*
+*.tsbuildinfo
+.npm
+.eslintcache
+
+.DS_Store

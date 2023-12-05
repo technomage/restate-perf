@@ -1,0 +1,1 @@
+time curl -X POST http://localhost:8080/Test/test -H 'content-type: application/json' -d '{"request":{"n": "1000000"}}'

@@ -1,0 +1,35 @@
+{
+  "name": "perf-test",
+  "version": "0.0.1",
+  "description": "Performance test project",
+  "type": "commonjs",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc --noEmitOnError",
+    "lint": "eslint --ignore-path .eslintignore --ext .ts .",
+    "format": "prettier --ignore-path .eslintignore --write \"**/*.+(js|ts|json)\"",
+    "verify": "npm run format -- --check && npm run lint && npm run build",
+    "app": "RESTATE_DEBUG_LOGGING=JOURNAL ts-node-dev --respawn --transpile-only src/app/app.ts 9080",
+    "agg1": "RESTATE_DEBUG_LOGGING=JOURNAL ts-node-dev --respawn --transpile-only src/agg/app.ts 9081 1",
+    "agg2": "RESTATE_DEBUG_LOGGING=JOURNAL ts-node-dev --respawn --transpile-only src/agg/app.ts 9082 2",
+    "agg3": "RESTATE_DEBUG_LOGGING=JOURNAL ts-node-dev --respawn --transpile-only src/agg/app.ts 9083 3",
+    "agg4": "RESTATE_DEBUG_LOGGING=JOURNAL ts-node-dev --respawn --transpile-only src/agg/app.ts 9084 4",
+    "test": "RESTATE_DEBUG_LOGGING=JOURNAL ts-node-dev --respawn --transpile-only src/test/app.ts 9089"
+  },
+  "author": "Michael Latta",
+  "email": "lattam@mac.com",
+  "dependencies": {
+    "@restatedev/restate-sdk": "0.5.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "esbuild": "^0.19.0",
+    "eslint": "^8.46.0",
+    "prettier": "^3.0.1",
+    "ts-node-dev": "^2.0.0"
+  }
+}
