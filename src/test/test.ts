@@ -35,6 +35,8 @@ const test = async (
   }
 
   console.log(`@@@@ Run test ${request.n} times.`);
+  var buffer = []
+  var priorAPI = null;
   for (var i=0; i<request.n; i++) {
     try {
       const uid = `${i}`;
@@ -43,17 +45,25 @@ const test = async (
       const api = d < 25 ? agg1Api :
                  (d < 50 ? agg2Api :
                  (d < 75 ? agg3Api : agg4Api))
-      // console.log(`@@@@ Calling Receive service: ${i} @ ${api.path}`);
-      // console.log(`@@@@    agg1API: ${agg1Api.path}`);
-      // console.log(`@@@@    agg2API: ${agg2Api.path}`);
-      // console.log(`@@@@    agg3API: ${agg3Api.path}`);
-      // console.log(`@@@@    agg4API: ${agg4Api.path}`);
-      const res = ctx.send(api).receive(uid, data(i));
+      if (priorAPI == api) {
+        buffer.push(data(i));
+      } else if (priorAPI == null) {
+        priorAPI = api;
+        buffer.push(data(i));
+      } else {
+        console.log(`@@@@ Calling Receive service: ${i} @ ${api.path} : ${JSON.stringify(buffer)}`);
+        const res = ctx.send(api).receive(uid, buffer);
+        priorAPI = api;
+        buffer = [];
+        buffer.push(data(i));
+      }
       // console.log(`@@@@ Receive result: ${res}`);
     } catch (ex) {
       console.log(`#### Error ${ex}`)
     }
   }
+  console.log(`@@@@ Calling Receive service: ${i} @ ${agg4Api}`);
+  const res = ctx.send(agg4Api).receive(`${request.n}`, buffer);
   console.log(`@@@@ Time ${(Date.now()-start)/1000.0} secs. Sec/request: ${(Date.now()-start)/1000.0/request.n}`);
   return request.n;
 };

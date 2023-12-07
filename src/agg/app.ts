@@ -10,11 +10,13 @@ var count = 0;
 const receive = async (
   ctx: restate.RpcContext,
   uid: string,
-  data: object,
+  datas: object[],
 ) => {
-  count ++;
-  if (count % 10000 == 0) {
-    console.log(`@@@@ Reveived "${JSON.stringify(data)}" for ${uid} in Agg${n}`);
+  for (var data of datas) {
+    count ++;
+    if (count % 10000 == 0) {
+      console.log(`@@@@ Reveived "${JSON.stringify(data)}" for ${uid} in Agg${n}`);
+    }
   }
 };
 
