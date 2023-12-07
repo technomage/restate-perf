@@ -38,11 +38,11 @@ const test = async (
   for (var i=0; i<request.n; i++) {
     try {
       const uid = `${i}`;
-      const d = uid[uid.length-1]
+      const d = (i%100)
       // console.log(`@@@@ d: ${d}`)
-      const api = d < '3' ? agg1Api :
-                 (d < '6' ? agg2Api :
-                 (d < '9' ? agg3Api : agg4Api))
+      const api = d < 25 ? agg1Api :
+                 (d < 50 ? agg2Api :
+                 (d < 75 ? agg3Api : agg4Api))
       // console.log(`@@@@ Calling Receive service: ${i} @ ${api.path}`);
       // console.log(`@@@@    agg1API: ${agg1Api.path}`);
       // console.log(`@@@@    agg2API: ${agg2Api.path}`);

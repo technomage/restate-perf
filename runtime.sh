@@ -1,1 +1,1 @@
-docker run --name restate_dev --rm -d -p 8080:8080 -p 9070:9070 -p 9071:9071 ghcr.io/restatedev/restate-dist:0.5.0
+docker run --name restate_dev --rm -d -p 8080:8080 -p 9070:9070 -p 9071:9071 -e RUST_LOG=info,restate_invoker_impl=WARN,restate_ingress_grpc=WARN ghcr.io/restatedev/restate-dist:0.5.0
